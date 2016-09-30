@@ -1,5 +1,4 @@
 var React = require('react');
-var ReactDom = require('react-dom');
 
 class Main extends React.Component {
   render() {
@@ -11,4 +10,4 @@ class Main extends React.Component {
   }
 }
 
-ReactDom.render(<Main/>, document.getElementById('app'));
+module.exports = Main;
