@@ -3,8 +3,15 @@ var React = require('react');
 class Main extends React.Component {
   render() {
     return (
-      <div>
-        Hello World
+      <div className="main-container">
+        <nav className="navbar navbar-light bg-faded">
+          <a className="navbar-brand" href="">
+            Menu
+          </a>
+        </nav>
+        <div className="container">
+          { this.props.children }
+        </div>
       </div>
     );
   }
