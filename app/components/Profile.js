@@ -11,7 +11,6 @@ var Profile = React.createClass({
   loadGitHubBio: function(user) {
     var self = this;
     let gh = new GitHub();
-    console.log(user);
     let ghUser = gh.getUser(user);
 
     ghUser.listRepos().then(function(data) {
@@ -24,7 +23,6 @@ var Profile = React.createClass({
       self.setState({
         bio: data.data
       });
-      console.log(self.state.bio);
     });
 
   },
@@ -39,8 +37,6 @@ var Profile = React.createClass({
   componentDidMount: function() {
     this.user = Firebase.database().ref(this.props.params.username);
     this.bindAsArray(this.user, 'notes');
-    console.log(this.state.notes);
-
     this.loadGitHubBio(this.props.params.username);
   },
   render: function() {
