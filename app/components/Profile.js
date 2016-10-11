@@ -26,6 +26,9 @@ var Profile = React.createClass({
     });
 
   },
+  handleAddNote: function(newNote) {
+    this.user.child(this.state.notes.length).set(newNote);
+  },
   getInitialState: function() {
     // return state
     return {
@@ -40,16 +43,17 @@ var Profile = React.createClass({
     this.loadGitHubBio(this.props.params.username);
   },
   render: function() {
+    let uname = this.props.params.username;
     return (
       <div className="row">
         <div className="col-xs-12 col-md-3">
-          <UserProfile username={this.props.params.username} bio={this.state.bio}/>
+          <UserProfile username={ uname } bio={ this.state.bio }/>
         </div>
         <div className="col-xs-12 col-md-5">
-          <Repos repos={this.state.repos} />
+          <Repos username={ uname } repos={ this.state.repos } />
         </div>
         <div className="col-xs-12 col-md-4">
-          <Notes notes={this.state.notes} />
+          <Notes username={ uname } addNote={ this.handleAddNote } notes={ this.state.notes } />
         </div>
       </div>
     );

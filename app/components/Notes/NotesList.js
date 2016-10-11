@@ -3,16 +3,23 @@ var React = require('react');
 var NotesList = React.createClass({
   render: function() {
     var list;
-    if (!this.props.notes) {
-      list = <li className="list-group-item">No notes available. Say something!</li>;
-    }
-    else {
-      this.props.notes.map(listItem => {
+    if (!this.props.notes.length) {
+
+      list = <li className="list-group-item">Nothing yet. Say something!</li>;
+
+    } else {
+
+      list = this.props.notes.map(listItem => {
+
+        let key = listItem[".key"];
+        let value = listItem[".value"];
+
         return (
-          <li key={listItem.id} className="list-group-item">
-            <span>{listItem.val}</span>
+          <li key={ key } className="list-group-item">
+            <span>{ value }</span>
           </li>
         );
+
       });
     }
 

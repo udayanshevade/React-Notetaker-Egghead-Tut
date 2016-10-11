@@ -10,7 +10,7 @@ var UserProfile = React.createClass({
     var imgClasses = "img-fluid img-rounded";
     return (
 
-      <div className={cardClasses}>
+      <div className={ cardClasses }>
 
         <div className="card-block">
 
@@ -20,7 +20,7 @@ var UserProfile = React.createClass({
           <p className="profile-location">{ this.props.bio.location }</p>
           <p className="profile-bio">{ this.props.bio.bio }</p>
 
-          <img className={imgClasses} src={ this.props.bio.avatar_url } alt={ 'GitHub avatar of ' + this.props.username }/>
+          <img className={ imgClasses } src={ this.props.bio.avatar_url } alt={ 'GitHub avatar of ' + this.props.username }/>
 
         </div>
 
