@@ -11,7 +11,7 @@ var Notes = React.createClass({
   render: function() {
     var cardTitleClasses = "card-title text-xs-center";
     return (
-      <div className="card">
+      <div className="card notes-card">
         <div className="card-block">
           <h4 className={ cardTitleClasses }>Say what?</h4>
         </div>

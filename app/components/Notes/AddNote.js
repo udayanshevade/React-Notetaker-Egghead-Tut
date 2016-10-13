@@ -13,7 +13,9 @@ var AddNote = React.createClass({
     event.preventDefault();
     var newNote = this.note.value;
     this.note.value = '';
-    this.props.addNote(newNote);
+    if (this.note.value) {
+      this.props.addNote(newNote);
+    }
   },
   render: function() {
     const buttonClasses = "btn btn-primary";

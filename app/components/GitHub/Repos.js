@@ -9,7 +9,7 @@ var Repos = React.createClass({
   render: function() {
     var cardTitleClasses = "card-title text-xs-center";
     return (
-      <div className="card">
+      <div className="card repos-card">
         <div className="card-block">
           <h4 className={ cardTitleClasses }>Projects</h4>
         </div>

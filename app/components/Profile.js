@@ -53,14 +53,18 @@ var Profile = React.createClass({
     let uname = this.props.params.username;
     return (
       <div className="row">
-        <div className="col-xs-12 col-md-3">
-          <UserProfile username={ uname } bio={ this.state.bio }/>
+        <div className="col-xs-12 col-lg-6 col-lg-push-6 profile-notes-col">
+          <div className="row">
+            <div className="col-xs-12 col-md-6 col-lg-12 profile-col">
+              <UserProfile username={ uname } bio={ this.state.bio }/>
+            </div>
+            <div className="col-xs-12 col-md-6 col-lg-12 notes-col">
+              <Notes username={ uname } addNote={ this.handleAddNote } notes={ this.state.notes } />
+            </div>
+          </div>
         </div>
-        <div className="col-xs-12 col-md-5">
+        <div className="col-xs-12 col-lg-6 col-lg-pull-6 repos-col">
           <Repos username={ uname } repos={ this.state.repos } />
-        </div>
-        <div className="col-xs-12 col-md-4">
-          <Notes username={ uname } addNote={ this.handleAddNote } notes={ this.state.notes } />
         </div>
       </div>
     );

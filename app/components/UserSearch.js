@@ -16,8 +16,8 @@ var UserSearch = React.createClass({
   },
   render: function() {
     return (
-      <form name="search-form" className="form-inline pull-xs-right" onSubmit={ this.handleSubmit }>
-        <input id="user-search-input" className="form-control" ref={ this.setRef } placeholder="Find someone"/>
+      <form name="search-form" className="search-form form-inline pull-xs-right" onSubmit={ this.handleSubmit }>
+        <input id="user-search-input" className="form-control search-input" ref={ this.setRef } placeholder="Find someone"/>
         <button className="btn btn-outline-success" type="submit">Search</button>
       </form>
     );
