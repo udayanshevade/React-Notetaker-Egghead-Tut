@@ -1,5 +1,10 @@
-.card {
-  max-height: calc(95vh - 54px);
-  overflow-y: auto; }
+.container-fluid {
+  padding-top: 10px;
+  padding-bottom: 10px; }
+
+@media screen and (min-width: 768px) {
+  .card {
+    max-height: calc(95vh - 54px);
+    overflow-y: auto; } }
 
 /*# sourceMappingURL=style.css.map */
