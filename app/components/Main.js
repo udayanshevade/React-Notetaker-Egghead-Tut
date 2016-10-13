@@ -7,7 +7,7 @@ class Main extends React.Component {
       <div className="main-container">
         <nav className="navbar navbar-dark bg-inverse">
           <a className="navbar-brand" href="">
-            Menu
+            Home
           </a>
           <UserSearch/>
         </nav>

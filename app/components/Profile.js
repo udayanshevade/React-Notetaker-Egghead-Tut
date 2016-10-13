@@ -37,17 +37,17 @@ var Profile = React.createClass({
       repos: []
     }
   },
-  initializeUser: function() {
-    this.user = Firebase.database().ref(this.props.params.username);
+  initializeUser: function(username) {
+    this.user = Firebase.database().ref(username);
     this.bindAsArray(this.user, 'notes');
-    this.loadGitHubBio(this.props.params.username);
+    this.loadGitHubBio(username);
   },
   componentDidMount: function() {
-    this.initializeUser();
+    this.initializeUser(this.props.params.username);
   },
-  componentWillReceiveProps: function() {
+  componentWillReceiveProps: function(nextProps) {
     this.unbind('notes');
-    this.initializeUser();
+    this.initializeUser(nextProps.params.username);
   },
   render: function() {
     let uname = this.props.params.username;

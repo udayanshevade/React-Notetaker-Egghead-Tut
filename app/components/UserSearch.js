@@ -12,7 +12,7 @@ var UserSearch = React.createClass({
     event.preventDefault();
     var searchVal = this.usernameToSearch.value;
     this.usernameToSearch.value = '';
-    this.context.router.push('profile/' + searchVal);
+    this.context.router.push('/profile/' + searchVal);
   },
   render: function() {
     return (
