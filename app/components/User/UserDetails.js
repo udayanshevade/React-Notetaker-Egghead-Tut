@@ -1,4 +1,5 @@
 import React from 'react';
+import GitDetails from './GitDetails.js';
 
 const UserDetails = ({bio, github, blog, email, repos, date, followers}) => {
   return (
