@@ -1,6 +1,10 @@
 .container-fluid {
-  padding-top: 10px;
-  padding-bottom: 10px; }
+  padding-top: 1rem;
+  padding-bottom: 1rem; }
+
+.flex-content {
+  display: flex;
+  flex-wrap: wrap; }
 
 .navbar {
   text-align: center; }
@@ -21,7 +25,7 @@
     display: block;
     width: 100%; } }
 #mapContainer {
-  margin: 1em auto;
+  margin: 1rem auto;
   max-width: 300px;
   height: 300px; }
 
@@ -36,17 +40,33 @@
 .profile-card {
   max-height: none; }
 
-@media screen and (min-width: 768px) {
-  .profile-card {
-    max-height: calc(100vh - 74px); } }
 .list-group-item:hover {
   background-color: #fcfcfc; }
 
-.repo-link, .repo-link:active, .repo-link:hover, .repo-link:visited {
+a, a:active, a:hover, a:visited {
   color: #333;
   text-decoration: none; }
 
 .card-title {
-  margin: 1em 0; }
+  margin: 1rem 0; }
+
+.user-details {
+  justify-content: center;
+  align-content: space-around;
+  min-height: 350px; }
+
+.blockquote-reverse {
+  width: 100%; }
+
+.github-details {
+  width: 100%;
+  justify-content: space-between;
+  margin: 1rem 0; }
+
+.github-detail {
+  width: 33.33%; }
+
+.detail {
+  font-size: 1.75rem; }
 
 /*# sourceMappingURL=style.css.map */
