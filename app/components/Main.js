@@ -6,7 +6,7 @@ const Main = ({children}) => {
     <div className="main-container">
       <nav className="navbar navbar-dark bg-inverse">
         <a className="navbar-brand" href="">
-          Home
+          <i className="fa fa-home"></i>
         </a>
         <UserSearch/>
       </nav>

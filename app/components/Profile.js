@@ -1,5 +1,5 @@
 import React from 'react';
-import UserProfile from './GitHub/UserProfile.js';
+import UserProfile from './User/UserProfile.js';
 import Repos from './GitHub/Repos.js';
 import Notes from './Notes/Notes.js';
 import Firebase from 'firebase';

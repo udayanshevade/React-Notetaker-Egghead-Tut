@@ -68,7 +68,9 @@ class Map extends React.Component {
   }
   render() {
     return (
-      <div id="mapContainer" ref="map"></div>
+      <div className="card-block col-xs-12 pull-lg-4 col-lg-4">
+        <div id="mapContainer" ref="map"></div>
+      </div>
     );
   }
 };
