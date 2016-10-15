@@ -1,22 +1,20 @@
-var React = require('react');
-var UserSearch = require('./UserSearch');
+import React from 'react';
+import UserSearch from './UserSearch';
 
-class Main extends React.Component {
-  render() {
-    return (
-      <div className="main-container">
-        <nav className="navbar navbar-dark bg-inverse">
-          <a className="navbar-brand" href="">
-            Home
-          </a>
-          <UserSearch/>
-        </nav>
-        <div className="container-fluid">
-          { this.props.children }
-        </div>
+const Main = ({children}) => {
+  return (
+    <div className="main-container">
+      <nav className="navbar navbar-dark bg-inverse">
+        <a className="navbar-brand" href="">
+          Home
+        </a>
+        <UserSearch/>
+      </nav>
+      <div className="container-fluid">
+        { children }
       </div>
-    );
-  }
+    </div>
+  );
 }
 
-module.exports = Main;
+export default Main;

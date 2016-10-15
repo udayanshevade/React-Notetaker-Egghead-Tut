@@ -1,20 +1,24 @@
-var React = require('react');
-var Router = require('react-router');
+import React from 'react';
+import Router from 'react-router';
 
-var UserSearch = React.createClass({
-  contextTypes: {
-    router: React.PropTypes.object.isRequired
-  },
-  setRef: function(ref) {
+class UserSearch extends React.Component {
+  constructor() {
+    super()
+    this.setRef = this.setRef.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  setRef(ref) {
     this.usernameToSearch = ref;
-  },
-  handleSubmit: function(event) {
+  }
+  handleSubmit(event) {
     event.preventDefault();
-    var searchVal = this.usernameToSearch.value;
+    const searchVal = this.usernameToSearch.value;
     this.usernameToSearch.value = '';
-    this.context.router.push('/profile/' + searchVal);
-  },
-  render: function() {
+    if (searchVal) {
+      this.context.router.push('/profile/' + searchVal);
+    }
+  }
+  render() {
     return (
       <form name="search-form" className="search-form form-inline pull-xs-right" onSubmit={ this.handleSubmit }>
         <input id="user-search-input" className="form-control search-input" ref={ this.setRef } placeholder="Find someone"/>
@@ -22,6 +26,10 @@ var UserSearch = React.createClass({
       </form>
     );
   }
-});
+}
 
-module.exports = UserSearch;
+UserSearch.contextTypes = {
+  router: React.PropTypes.object.isRequired
+};
+
+export default UserSearch;

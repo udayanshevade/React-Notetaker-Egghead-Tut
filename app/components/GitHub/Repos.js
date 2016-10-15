@@ -1,22 +1,19 @@
-var React = require('react');
-var ReposList = require('./ReposList');
+import React from 'react';
+import ReposList from './ReposList';
 
-var Repos = React.createClass({
-  propTypes: {
-    username: React.PropTypes.string.isRequired,
-    repos: React.PropTypes.array.isRequired
-  },
-  render: function() {
-    var cardTitleClasses = "card-title text-xs-center";
-    return (
-      <div className="card repos-card">
-        <div className="card-block">
-          <h4 className={ cardTitleClasses }>Projects</h4>
-        </div>
-        <ReposList repos={ this.props.repos }/>
+const Repos = ({repos}) => {
+  return (
+    <div className="card repos-card">
+      <div className="card-block">
+        <h4 className="card-title text-xs-center">Projects</h4>
       </div>
-    );
-  }
-});
+      <ReposList repos={ repos }/>
+    </div>
+  );
+};
 
-module.exports = Repos;
+Repos.propTypes = {
+  repos: React.PropTypes.array.isRequired
+};
+
+export default Repos;

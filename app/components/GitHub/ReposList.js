@@ -1,28 +1,18 @@
-var React = require('react');
+import React from 'react';
+import Repo from './Repo.js';
 
-var ReposList = React.createClass({
-  render: function() {
-    var list;
-    if (!this.props.repos) {
-      list = 'No repos available.';
-    } else {
-      list = this.props.repos.map(listItem => {
-        return (
-          <li key={listItem.id} className="list-group-item">
-            <h5 className="repo-name"><a className="repo-link" href={listItem.url}>{listItem.name}</a></h5>
-            <p className="repo-description">{listItem.description || 'No description available'}</p>
-
-          </li>
-        );
-      });
-    }
-
+const ReposList = ({repos}) => {
+  if (!repos.length) {
+    return <p className="list-group-item disabled">No repos available.</p>;
+  } else {
     return (
       <ul className="list-group">
-        { list }
+        { repos.map((listItem, i) => {
+          return <Repo key={ i } data={ listItem } />
+        }) }
       </ul>
     );
   }
-});
+};
 
-module.exports = ReposList;
+export default ReposList;

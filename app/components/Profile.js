@@ -1,74 +1,96 @@
-var React = require('react');
-var UserProfile = require('./GitHub/UserProfile.js');
-var Repos = require('./GitHub/Repos.js');
-var Notes = require('./Notes/Notes.js');
-var Firebase = require('firebase');
-var ReactFireMixin = require('reactfire');
+import React from 'react';
+import UserProfile from './GitHub/UserProfile.js';
+import Repos from './GitHub/Repos.js';
+import Notes from './Notes/Notes.js';
+import Firebase from 'firebase';
+import Rebase from 're-base';
 import GitHub from 'github-api';
 
-var Profile = React.createClass({
-  mixins: [ReactFireMixin],
-  loadGitHubBio: function(user) {
-    var self = this;
-    let gh = new GitHub();
-    let ghUser = gh.getUser(user);
+// Initialize Firebase
+var config = {
+  apiKey: "AIzaSyBpBxfNCtzsS9fC5lit7PtmkzGWjRyJOJY",
+  authDomain: "first-react-app-a76ec.firebaseapp.com",
+  databaseURL: "https://first-react-app-a76ec.firebaseio.com",
+  storageBucket: "first-react-app-a76ec.appspot.com",
+  messagingSenderId: "763887315114"
+};
 
-    ghUser.listRepos().then(function(data) {
-      self.setState({
-        repos: data.data
-      });
-    });
+const base = Rebase.createClass(config);
 
-    ghUser.getProfile().then(function(data) {
-      self.setState({
-        bio: data.data
-      });
-    });
-
-  },
-  handleAddNote: function(newNote) {
-    this.user.child(this.state.notes.length).set(newNote);
-  },
-  getInitialState: function() {
-    // return state
-    return {
+class Profile extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       notes: [],
       bio: {},
       repos: []
-    }
-  },
-  initializeUser: function(username) {
-    this.user = Firebase.database().ref(username);
-    this.bindAsArray(this.user, 'notes');
+    };
+    this.loadGitHubBio = this.loadGitHubBio.bind(this);
+    this.handleAddNote = this.handleAddNote.bind(this);
+    this.initializeUser = this.initializeUser.bind(this);
+  }
+  loadGitHubBio(user) {
+    const self = this;
+    const gh = new GitHub();
+    const ghUser = gh.getUser(user);
+
+    ghUser.listRepos().then((data) => {
+      this.setState({
+        repos: data.data
+      });
+      // console.log(this.state.repos);
+    });
+
+    ghUser.getProfile().then((data) => {
+      this.setState({
+        bio: data.data
+      });
+      console.log(this.state.bio);
+    });
+
+  }
+  handleAddNote(newNote) {
+    base.post(this.props.params.username, {
+      data: this.state.notes.concat([newNote])
+    });
+  }
+  initializeUser(username) {
+    this.user = base.bindToState(username, {
+      context: this,
+      AsArray: true,
+      state: 'notes'
+    });
     this.loadGitHubBio(username);
-  },
-  componentDidMount: function() {
+  }
+  componentWillMount() {
     this.initializeUser(this.props.params.username);
-  },
-  componentWillReceiveProps: function(nextProps) {
-    this.unbind('notes');
+  }
+  componentWillReceiveProps(nextProps) {
+    base.removeBinding(this.user);
     this.initializeUser(nextProps.params.username);
-  },
-  render: function() {
-    let uname = this.props.params.username;
+  }
+  render() {
+    const uname = this.props.params.username;
+    const repos = (this.state.repos.length) ? this.state.repos : [];
+    const notes = (this.state.notes.length) ? this.state.notes : [];
     return (
       <div className="row">
-        <div className="col-xs-12 col-lg-6 col-lg-push-6 profile-notes-col">
+        <div className="col-xs-12 profile-col">
+          <UserProfile username={ uname } bio={ this.state.bio }/>
+        </div>
+        <div className="col-xs-12 repos-notes-col">
           <div className="row">
-            <div className="col-xs-12 col-md-6 col-lg-12 profile-col">
-              <UserProfile username={ uname } bio={ this.state.bio }/>
+            <div className="col-xs-12 col-lg-6 repos-col">
+              <Repos username={ uname } repos={ repos } />
             </div>
-            <div className="col-xs-12 col-md-6 col-lg-12 notes-col">
-              <Notes username={ uname } addNote={ this.handleAddNote } notes={ this.state.notes } />
+            <div className="col-xs-12 col-lg-6 notes-col">
+              <Notes username={ uname } addNote={ this.handleAddNote } notes={ notes } />
             </div>
           </div>
-        </div>
-        <div className="col-xs-12 col-lg-6 col-lg-pull-6 repos-col">
-          <Repos username={ uname } repos={ this.state.repos } />
         </div>
       </div>
     );
   }
-});
+};
 
-module.exports = Profile;
+export default Profile;

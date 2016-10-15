@@ -1,12 +1,19 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-var Map = React.createClass({
-  loadMap: function() {
+class Map extends React.Component {
+  constructor(props) {
+    super(props);
+    this.loadMap = this.loadMap.bind(this);
+    this.searchPlace = this.searchPlace.bind(this);
+    this.setPlace = this.setPlace.bind(this);
+    this.setMarker = this.setMarker.bind(this);
+  }
+  loadMap() {
     if (this.props && this.props.google) {
       const loc = this.props.location;
 
-      var mapContainer = ReactDOM.findDOMNode(this.refs.map);
+      const mapContainer = ReactDOM.findDOMNode(this.refs.map);
 
       const settings = {
         scrollwheel: false,
@@ -18,22 +25,22 @@ var Map = React.createClass({
 
       this.infowindow = new this.props.google.maps.InfoWindow();
     }
-  },
+  }
   searchPlace(loc) {
     const service = new this.props.google.maps.places.PlacesService(this.map);
     service.textSearch({ query: loc }, this.setPlace);
-  },
-  setPlace: function(results, status) {
+  }
+  setPlace(results, status) {
     if (status == this.props.google.maps.places.PlacesServiceStatus.OK) {
       this.setMarker(results[0]);
     }
-  },
-  setMarker: function(placeData) {
-    var self = this;
+  }
+  setMarker(placeData) {
+    const self = this;
 
-    var lat = placeData.geometry.location.lat();
-    var lng = placeData.geometry.location.lng();
-    var name = placeData.formatted_address;
+    const lat = placeData.geometry.location.lat();
+    const lng = placeData.geometry.location.lng();
+    const name = placeData.formatted_address;
 
     this.map.setCenter({lat: lat, lng: lng})
 
@@ -44,26 +51,26 @@ var Map = React.createClass({
       animation: google.maps.Animation.DROP
     });
 
-    this.marker.addListener('click', function() {
-      self.infowindow.open(self.map, this);
+    this.marker.addListener('click', () => {
+      this.infowindow.open(this.map, this.marker);
     });
     this.infowindow.setContent(name);
 
-  },
-  componentDidMount: function() {
+  }
+  componentDidMount() {
     this.loadMap();
-  },
-  componentWillReceiveProps: function(nextProps) {
+  }
+  componentWillReceiveProps(nextProps) {
     if (this.marker) {
       this.marker.setMap(null);
     }
     this.searchPlace(nextProps.location);
-  },
-  render: function() {
+  }
+  render() {
     return (
       <div id="mapContainer" ref="map"></div>
     );
   }
-});
+};
 
-module.exports = Map;
+export default Map;
