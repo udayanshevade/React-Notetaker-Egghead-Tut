@@ -52,3 +52,23 @@
     max-height: calc(100vh - 74px);
   }
 }
+
+.list-group-item {
+  &:hover {
+    background-color: #fcfcfc;
+  }
+}
+
+.repo-link {
+  color: #333;
+  text-decoration: none;
+  &:active,
+  &:hover,
+  &:visited {
+    @extend .repo-link;
+  }
+}
+
+.card-title {
+  margin: 1em 0;
+}

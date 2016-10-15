@@ -39,5 +39,14 @@
 @media screen and (min-width: 768px) {
   .profile-card {
     max-height: calc(100vh - 74px); } }
+.list-group-item:hover {
+  background-color: #fcfcfc; }
+
+.repo-link, .repo-link:active, .repo-link:hover, .repo-link:visited {
+  color: #333;
+  text-decoration: none; }
+
+.card-title {
+  margin: 1em 0; }
 
 /*# sourceMappingURL=style.css.map */
