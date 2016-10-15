@@ -25,7 +25,7 @@ const UserDetails = ({bio, github, blog, email, repos, date, followers}) => {
 
         { email &&
          <button type="button" className="btn btn-secondary">
-          <a className="email-link button-link" href={ email } type="email">
+          <a className="email-link button-link" href={ 'mailto:' + email } type="email">
             <i className="fa fa-envelope-o"></i>
           </a>
         </button>
