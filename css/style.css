@@ -16,6 +16,7 @@
   box-shadow: 1px 3px 5px rgba(200, 200, 200, 0.4); }
 
 .search-form {
+  margin: 1rem 0;
   width: 300px;
   max-width: 100%; }
 
@@ -23,13 +24,23 @@
   display: inline;
   width: auto; }
 
+.search-btn {
+  margin-left: 1rem; }
+
 @media screen and (min-width: 500px) {
   .navbar {
-    text-align: center; }
+    text-align: right; }
+
+  .search-form {
+    margin: 0; }
 
   .search-input {
     display: block;
     width: 100%; } }
+@media screen and (min-width: 500px) and (max-width: 992px) {
+  .blockquote-reverse {
+    width: 300px;
+    margin: 0 auto; } }
 #mapContainer {
   margin: 0 auto;
   max-width: 300px;
@@ -62,7 +73,7 @@ a, a:active, a:hover, a:visited {
   align-content: space-around;
   min-height: 350px; }
 
-.blockquote-reverse {
+.blockquote-container {
   width: 100%; }
 
 .github-details {
