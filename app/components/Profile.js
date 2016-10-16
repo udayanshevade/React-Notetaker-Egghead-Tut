@@ -5,6 +5,7 @@ import Notes from './Notes/Notes.js';
 import Firebase from 'firebase';
 import Rebase from 're-base';
 import GitHub from 'github-api';
+import SearchError from './SearchError.js';
 
 // Initialize Firebase
 var config = {
@@ -23,7 +24,8 @@ class Profile extends React.Component {
     this.state = {
       notes: [],
       bio: {},
-      repos: []
+      repos: [],
+      searchError: false
     };
     this.initializeUser = this.initializeUser.bind(this);
     this.changeUser = this.changeUser.bind(this);
@@ -31,27 +33,26 @@ class Profile extends React.Component {
     this.loadProfile = this.loadProfile.bind(this);
     this.loadRepos = this.loadRepos.bind(this);
     this.handleAddNote = this.handleAddNote.bind(this);
+    this.resetSearchError = this.resetSearchError.bind(this);
   }
-  loadGitHub(newName, currentName) {
+  loadGitHub(newName) {
     const self = this;
     const gh = new GitHub();
     const ghUser = gh.getUser(newName);
-    return this.loadProfile(ghUser, currentName).then(() => {
+    return this.loadProfile(ghUser, this.currentName).then(() => {
       this.loadRepos(ghUser);
     });
   }
-  loadProfile(ghUser, currentName) {
+  loadProfile(ghUser) {
     return ghUser.getProfile()
     .then((data) => {
       this.setState({
         bio: data.data
       });
     }).catch((err) => {
-      if (currentName) {
-        this.context.router.push('/profile/' + currentName);
-      } else {
-        this.context.router.push('/');
-      }
+      this.setState({
+        searchError: true
+      });
     });
   }
   loadRepos(ghUser) {
@@ -68,8 +69,8 @@ class Profile extends React.Component {
       data: this.state.notes.concat([newNote])
     });
   }
-  initializeUser(newName, currentName) {
-    this.loadGitHub(newName, currentName)
+  initializeUser(newName) {
+    this.loadGitHub(newName)
     .then(() => {
       if (this.endpoint !== newName) {
         if (this.user) {
@@ -83,16 +84,26 @@ class Profile extends React.Component {
       }
     });
   }
-  changeUser(newName, currentName) {
-    this.initializeUser(newName, currentName);
+  changeUser(newName) {
+    this.initializeUser(newName, this.currentName);
+  }
+  resetSearchError() {
+    this.setState({
+      searchError: false
+    });
+    if (this.currentName) {
+      this.context.router.push('/profile/' + this.currentName);
+    } else {
+      this.context.router.push('/');
+    }
   }
   componentWillMount() {
     this.changeUser(this.props.params.username);
   }
   componentWillReceiveProps(nextProps) {
     const newName = nextProps.params.username;
-    const currentName = this.props.params.username;
-    this.changeUser(newName, currentName);
+    this.currentName = this.props.params.username;
+    this.changeUser(newName);
   }
   render() {
     const uname = this.props.params.username;
@@ -113,6 +124,7 @@ class Profile extends React.Component {
             </div>
           </div>
         </div>
+        <SearchError username={ uname } show={ this.state.searchError } dismiss={ this.resetSearchError }/>
       </div>
     );
   }

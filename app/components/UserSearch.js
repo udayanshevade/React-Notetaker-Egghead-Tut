@@ -19,7 +19,7 @@ class UserSearch extends React.Component {
   render() {
     return (
       <form name="search-form" className="search-form form-inline pull-xs-right" onSubmit={ this.handleSubmit }>
-        <input id="user-search-input" className="form-control search-input" ref={ this.setRef } placeholder="Search username"/>
+        <input id="user-search-input" className="form-control search-input" ref={ this.setRef } placeholder="Search username" type="text"/>
         <button className="btn btn-secondary btn-sm search-btn" type="submit">
           <i className="fa fa-user"></i>
         </button>
