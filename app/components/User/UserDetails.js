@@ -6,7 +6,9 @@ const UserDetails = ({bio, github, blog, email, repos, date, followers}) => {
     <div className="card-block col-xs-12 col-lg-4 flex-content user-details">
 
       { bio &&
-        <blockquote className="blockquote-reverse">bio</blockquote>
+        <div className="blockquote-container">
+          <blockquote className="blockquote-reverse">bio</blockquote>
+        </div>
       }
 
       <div className="btn-group" role="group" aria-label="Basic example">
