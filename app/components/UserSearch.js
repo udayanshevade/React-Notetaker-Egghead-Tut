@@ -1,8 +1,8 @@
 import React from 'react';
 
 class UserSearch extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.setRef = this.setRef.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -13,9 +13,8 @@ class UserSearch extends React.Component {
     event.preventDefault();
     const searchVal = this.usernameToSearch.value;
     this.usernameToSearch.value = '';
-    if (searchVal) {
-      this.context.router.push('/profile/' + searchVal);
-    }
+    //console.log(this);
+    this.props.search(searchVal);
   }
   render() {
     return (
@@ -30,7 +29,7 @@ class UserSearch extends React.Component {
 }
 
 UserSearch.contextTypes = {
-  router: React.PropTypes.object.isRequired
+  prop: React.PropTypes.bool
 };
 
 export default UserSearch;
