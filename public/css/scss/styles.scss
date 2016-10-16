@@ -10,6 +10,7 @@
 
 .navbar {
   text-align: center;
+  box-shadow: 1px 3px 5px rgba(200,200,200,0.4);
 }
 
 .search-form {
@@ -33,7 +34,7 @@
 }
 
 #mapContainer {
-  margin: 1rem auto;
+  margin: 0 auto;
   max-width: 300px;
   height: 300px;
 }
@@ -46,6 +47,7 @@
 .card {
   max-height: calc(100vh - 74px);
   overflow: auto;
+  box-shadow: 1px 3px 5px rgba(200,200,200,0.4);
 }
 
 .profile-card {

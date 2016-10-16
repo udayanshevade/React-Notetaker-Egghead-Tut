@@ -25,49 +25,74 @@ class Profile extends React.Component {
       bio: {},
       repos: []
     };
-    this.loadGitHubBio = this.loadGitHubBio.bind(this);
-    this.handleAddNote = this.handleAddNote.bind(this);
     this.initializeUser = this.initializeUser.bind(this);
+    this.changeUser = this.changeUser.bind(this);
+    this.loadGitHub = this.loadGitHub.bind(this);
+    this.loadProfile = this.loadProfile.bind(this);
+    this.loadRepos = this.loadRepos.bind(this);
+    this.handleAddNote = this.handleAddNote.bind(this);
   }
-  loadGitHubBio(user) {
+  loadGitHub(newName, currentName) {
     const self = this;
     const gh = new GitHub();
-    const ghUser = gh.getUser(user);
-
-    ghUser.listRepos().then((data) => {
-      this.setState({
-        repos: data.data
-      });
-      // console.log(this.state.repos);
+    const ghUser = gh.getUser(newName);
+    return this.loadProfile(ghUser, currentName).then(() => {
+      this.loadRepos(ghUser);
     });
-
-    ghUser.getProfile().then((data) => {
+  }
+  loadProfile(ghUser, currentName) {
+    return ghUser.getProfile()
+    .then((data) => {
       this.setState({
         bio: data.data
       });
-      console.log(this.state.bio);
+    }).catch((err) => {
+      if (currentName) {
+        this.context.router.push('/profile/' + currentName);
+      } else {
+        this.context.router.push('/');
+      }
     });
-
+  }
+  loadRepos(ghUser) {
+    return ghUser.listRepos().then((data) => {
+      this.setState({
+        repos: data.data
+      });
+    }).catch(function(err) {
+      console.log(err);
+    });
   }
   handleAddNote(newNote) {
     base.post(this.props.params.username, {
       data: this.state.notes.concat([newNote])
     });
   }
-  initializeUser(username) {
-    this.user = base.bindToState(username, {
-      context: this,
-      AsArray: true,
-      state: 'notes'
+  initializeUser(newName, currentName) {
+    this.loadGitHub(newName, currentName)
+    .then(() => {
+      if (this.endpoint !== newName) {
+        if (this.user) {
+          base.removeBinding(this.user);
+        }
+        this.user = base.bindToState(newName, {
+          context: this,
+          AsArray: true,
+          state: 'notes'
+        });
+      }
     });
-    this.loadGitHubBio(username);
+  }
+  changeUser(newName, currentName) {
+    this.initializeUser(newName, currentName);
   }
   componentWillMount() {
-    this.initializeUser(this.props.params.username);
+    this.changeUser(this.props.params.username);
   }
   componentWillReceiveProps(nextProps) {
-    base.removeBinding(this.user);
-    this.initializeUser(nextProps.params.username);
+    const newName = nextProps.params.username;
+    const currentName = this.props.params.username;
+    this.changeUser(newName, currentName);
   }
   render() {
     const uname = this.props.params.username;
@@ -91,6 +116,10 @@ class Profile extends React.Component {
       </div>
     );
   }
+};
+
+Profile.contextTypes = {
+  router: React.PropTypes.object.isRequired
 };
 
 export default Profile;

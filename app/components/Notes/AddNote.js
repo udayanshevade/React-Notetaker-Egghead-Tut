@@ -22,10 +22,16 @@ class AddNote extends React.Component {
       <form id="note-form" name="note-form" onSubmit={this.handleSubmit}>
         <div className="form-group">
           <label htmlFor="add-note-input">Add a note:</label>
-          <input type="text" id="add-note-input" className="form-control" aria-describedby="add-note-subtext" placeholder={ this.props.username + ' is such a ... ' } ref={this.setRef}/>
+          <div className="input-group">
+            <input type="text" id="add-note-input" className="form-control" aria-describedby="add-note-subtext" placeholder={ this.props.username + ' is such a ... ' } ref={this.setRef}/>
+            <span className="input-group-btn">
+              <button type="submit" className="btn btn-primary">
+                <i className="fa fa-comment-o"></i>
+              </button>
+            </span>
+          </div>
           <small id="add-note-subtext" className="form-text form-muted">Go on, say something!</small>
         </div>
-        <button type="submit" className="btn btn-primary">Post</button>
       </form>
     );
   }

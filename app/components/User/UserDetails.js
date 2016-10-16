@@ -18,7 +18,7 @@ const UserDetails = ({bio, github, blog, email, repos, date, followers}) => {
         { blog &&
           <button type="button" className="btn btn-secondary">
             <a className="blog-link button-link" href={ blog }>
-              <i className="fa fa-github-alt"></i>
+              <i className="fa fa-link"></i>
             </a>
           </button>
         }

@@ -1,5 +1,4 @@
 import React from 'react';
-import Router from 'react-router';
 
 class UserSearch extends React.Component {
   constructor() {
@@ -21,8 +20,8 @@ class UserSearch extends React.Component {
   render() {
     return (
       <form name="search-form" className="search-form form-inline pull-xs-right" onSubmit={ this.handleSubmit }>
-        <input id="user-search-input" className="form-control search-input" ref={ this.setRef } placeholder="Find someone"/>
-        <button className="btn btn-outline-success" type="submit">
+        <input id="user-search-input" className="form-control search-input" ref={ this.setRef } placeholder="Search username"/>
+        <button className="btn btn-outline-success btn-sm" type="submit">
           <i className="fa fa-user"></i>
         </button>
       </form>
