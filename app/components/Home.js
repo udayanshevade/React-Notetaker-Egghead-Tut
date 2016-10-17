@@ -4,9 +4,12 @@ const Home = () => {
   return (
     <div className="row">
       <div className="col-xs-12">
-        <h2 className="text-md-center">
-          Search by GitHub Username Above
-        </h2>
+        <div className="home-content">
+          <i className="fa fa-user splash-user-symbol"></i>
+          <h2 className="text-md-center">
+            Find GitHub Users
+          </h2>
+        </div>
       </div>
     </div>
   );
