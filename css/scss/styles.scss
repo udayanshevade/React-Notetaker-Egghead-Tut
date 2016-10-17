@@ -34,6 +34,18 @@
   margin-left: 1rem;
 }
 
+.home-content {
+  position: relative;
+}
+
+.splash-user-symbol {
+  color: rgba(235,235,235,0.3);
+  font-size: 50vw;
+  z-index: -10;
+  position: absolute;
+  left: calc(50% - 20vw);
+}
+
 @media screen and (min-width: 500px) {
   .navbar {
     text-align: right;
