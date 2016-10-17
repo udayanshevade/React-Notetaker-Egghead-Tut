@@ -4,7 +4,7 @@ Just me familiarizing myself with the React framework.
 Found here: https://egghead.io/lessons/react-building-a-react-js-app-notetaker-introduction
 
 ## Preview:
-Coming Soon.
+[See it here](http://udayanshevade.github.io/React-Notetaker-Egghead-Tut).
 
 ## Features:
 None yet.
